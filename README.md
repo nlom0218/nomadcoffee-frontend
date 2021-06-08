@@ -1,3 +1,3 @@
-# momadcoffee frontend
+# NOMADCOFFEE FRONTEND
 
 - [x] Setup!

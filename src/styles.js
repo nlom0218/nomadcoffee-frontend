@@ -1,21 +1,43 @@
 import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
-export const ligthTheme = {
-  fontColor: "#242A2D",
-  bgColor: "#FFFFFF"
+const color = {
+  lightBeige: "#fcfaf4",
+  darkBrown: "#211700",
+  brown: "#6A4424",
+  lightBrown: "#C9A891"
+}
+
+export const lightTheme = {
+  fontColor: color.darkBrown,
+  bgColor: color.lightBeige,
+  boxColor: color.brown,
+  boxShadowColor: color.lightBrown
 }
 export const darkTheme = {
-  fontColor: "#FFFFFF",
-  bgColor: "#242A2D"
+  fontColor: color.lightBeige,
+  bgColor: color.darkBrown,
+  boxColor: color.lightBrown,
+  boxShadowColor: color.brown
 }
 
 export const GlobalStyles = createGlobalStyle`
   ${reset}
+  input {
+    all: unset;
+    box-sizing: border-box;
+  }
+  * {
+    box-sizing: border-box;
+  }
   body {
     user-select: none;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: ${props => props.theme.bgColor};
-    color: ${props => props.theme.fontColor}
+    color: ${props => props.theme.fontColor};
+    font-size: 16px;
+  }
+  a {
+    text-decoration: none;
   }
 `

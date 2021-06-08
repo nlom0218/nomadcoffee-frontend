@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { isLoggedInVar } from '../apollo';
 import DarkModeBtn from '../components/DarkModeBtn';
+import PageTitle from '../components/PageTitle';
 
 const Container = styled.div`
   display: flex;
@@ -20,9 +21,8 @@ const Button = styled.button`
 
 const Home = () => {
   return (<Container>
-    <Title>Welcome to Nomad Coffee</Title>
-    <Button onClick={() => isLoggedInVar(false)}>Logout</Button>
-    <DarkModeBtn />
+    <PageTitle title="홈" />
+    Welcome NOMADCOFFEE!
   </Container>);
 }
 
