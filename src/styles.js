@@ -36,8 +36,17 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${props => props.theme.bgColor};
     color: ${props => props.theme.fontColor};
     font-size: 16px;
+    width: 100%;
+
   }
   a {
     text-decoration: none;
+  }
+  #root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 `

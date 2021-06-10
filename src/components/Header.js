@@ -1,13 +1,47 @@
 import { useReactiveVar } from '@apollo/client';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { isLoggedInVar, logOutUser } from '../apollo';
+import useUser from '../hooks/useUser';
 import routes from "../routes"
+import DarkModeBtn from './DarkModeBtn';
+
+const Contanier = styled.div`
+  width: 100%;
+  border-bottom: 1px solid ${props => props.theme.fontColor};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+  margin-bottom: 60px;
+`
+
+const SHeader = styled.header`
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const AuthLink = styled.div`
+  display: flex;
+  font-size: 16px;
+`
 
 const LoginLink = styled.div`
   cursor: pointer;
 `
+
+const User = styled.div`
+  margin-right: 20px;
+  a {
+    color: ${props => props.theme.fontColor};
+  }
+`
+
 
 const Header = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar)
@@ -19,9 +53,18 @@ const Header = () => {
       history.push(routes.LOGIN)
     }
   }
-  return (<div>
-    <LoginLink onClick={onClickLink}>{isLoggedIn ? "로그아웃" : "로그인"}</LoginLink>
-  </div>);
+  const user = useUser()
+  return (<Contanier>
+    <SHeader>
+      <DarkModeBtn />
+      <AuthLink>
+        {isLoggedIn ?
+          <User><Link to={`${user?.username}`}><FontAwesomeIcon icon={faUser} /></Link></User>
+          : null}
+        <LoginLink onClick={onClickLink}>{isLoggedIn ? "로그아웃" : "로그인"}</LoginLink>
+      </AuthLink>
+    </SHeader>
+  </Contanier>);
 }
 
 export default Header;

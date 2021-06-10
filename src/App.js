@@ -12,10 +12,11 @@ import routes from './routes';
 import DarkModeBtn from './components/DarkModeBtn';
 import SignUp from './screens/SignUp';
 import { HelmetProvider } from 'react-helmet-async';
+import Profile from './screens/Profile';
+import CreateShop from './screens/CreateShop';
 
 
 function App() {
-  const isLoggedIn = useReactiveVar(isLoggedInVar)
   const darkMode = useReactiveVar(darkModeVar)
   return (
     <ApolloProvider client={client}>
@@ -28,9 +29,10 @@ function App() {
               <Route exact path="/"><Home /></Route>
               <Route path={routes.LOGIN}><Login /></Route>
               <Route path={routes.SIGNUP}><SignUp /></Route>
+              <Route path={routes.ADD}><CreateShop /></Route>
+              <Route exact path={routes.USER}><Profile /></Route>
               <Route><NotFound /></Route>
             </Switch>
-            <DarkModeBtn />
           </Router>
         </ThemeProvider>
       </HelmetProvider>

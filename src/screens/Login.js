@@ -43,6 +43,7 @@ const Login = () => {
       return
     }
     if (token) {
+      console.log(token);
       logInUser(token)
       history.push(routes.HOME)
     }

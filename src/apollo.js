@@ -1,4 +1,6 @@
-import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+import { ApolloClient, createHttpLink, InMemoryCache, makeVar } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { createUploadLink } from 'apollo-upload-client'
 
 const TOKEN = "token"
 
@@ -14,9 +16,23 @@ export const logOutUser = () => {
 
 export const darkModeVar = makeVar(false)
 
+const httpLink = createUploadLink({
+  uri: "http://localhost:4000/graphQL"
+})
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      token: localStorage.getItem(TOKEN) || ""
+    }
+  }
+})
+
 
 export const client = new ApolloClient({
-  uri: "https://khd-nomadcoffee-backend.herokuapp.com/graphql",
-  cache: new InMemoryCache
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache()
 })
+
 

@@ -8,8 +8,8 @@ const FormContainer = styled.div`
   align-items: center;
   background-color: ${props => props.theme.boxColor};
   box-shadow: 7px 7px 0px 1px ${props => props.theme.boxShadowColor};
-  width: 350px;
-  max-width: 350px;
+  width: 100%;
+  max-width: 100%;
   padding: 20px 0px;
   margin-bottom: 20px;
   form {
