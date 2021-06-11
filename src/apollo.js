@@ -3,6 +3,7 @@ import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from 'apollo-upload-client'
 
 const TOKEN = "token"
+const PAGE = "page"
 
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)))
 export const logInUser = (token) => {
@@ -16,8 +17,16 @@ export const logOutUser = () => {
 
 export const darkModeVar = makeVar(false)
 
+export const pageVar = makeVar(parseInt(localStorage.getItem(PAGE)) || 1)
+export const setPage = (page) => {
+  pageVar(page)
+  localStorage.setItem(PAGE, page)
+}
+
 const httpLink = createUploadLink({
-  uri: "http://localhost:4000/graphQL"
+  uri: process.env.NODE_ENV === "production"
+    ? "https://khd-nomadcoffee-backend.herokuapp.com/graphql"
+    : "http://localhost:4000/graphql",
 })
 
 const authLink = setContext((_, { headers }) => {

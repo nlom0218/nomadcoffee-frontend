@@ -12,13 +12,15 @@ export const lightTheme = {
   fontColor: color.darkBrown,
   bgColor: color.lightBeige,
   boxColor: color.brown,
-  boxShadowColor: color.lightBrown
+  boxShadowColor: color.lightBrown,
+  opacityBgColor: "rgb(252, 250, 244, 0.6)"
 }
 export const darkTheme = {
   fontColor: color.lightBeige,
   bgColor: color.darkBrown,
   boxColor: color.lightBrown,
-  boxShadowColor: color.brown
+  boxShadowColor: color.brown,
+  opacityBgColor: "rgb(33, 22, 0, 0.6)"
 }
 
 export const GlobalStyles = createGlobalStyle`

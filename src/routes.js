@@ -3,7 +3,8 @@ const routes = {
   LOGIN: "/log-in",
   SIGNUP: "/sign-up",
   USER: "/:username",
-  ADD: "/add"
+  ADD: "/add",
+  SHOP_DETATIL: "/shop/:id"
 }
 
 export default routes
