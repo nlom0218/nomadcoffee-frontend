@@ -65,7 +65,7 @@ const InfoCreate = ({ setPhoto, setShopId }) => {
       <Input
         {...register("categories")}
         type="text" placeholder="coffee categories" autoComplete="off" />
-      <Button type="submit" value="카페 대표사진 설정하기" />
+      <Button type="submit" value="카페 대표사진 설정하기" disabled={!isValid} />
     </form>);
 }
 

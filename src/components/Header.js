@@ -48,9 +48,11 @@ const Header = () => {
   const history = useHistory()
   const onClickLink = () => {
     if (isLoggedIn) {
+      history.push(routes.HOME)
       logOutUser()
     } else {
       history.push(routes.LOGIN)
+      window.location.reload()
     }
   }
   const user = useUser()

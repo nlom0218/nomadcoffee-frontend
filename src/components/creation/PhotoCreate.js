@@ -32,7 +32,10 @@ const PhotoCreate = ({ shopId }) => {
   })
 
   const [uploadCoffeeShopPhoto, { loading }] = useMutation(UPLOAD_COFFEE_SHOP_PHOTO, {
-    onCompleted: (data) => history.push(routes.HOME)
+    onCompleted: (data) => {
+      history.push(routes.HOME)
+      window.location.reload()
+    }
   })
 
   const onChangePhoto = ({ target: { validity, files: [file] } }) => {

@@ -15,12 +15,15 @@ const Container = styled.div`
 const TitleIcon = styled.h1`
   font-size: 30px;
   margin: 30px 0px 5px 0px;
+  svg{
+    margin-right: 10px;
+  }
 `
 
 
 const AuthLayout = ({ children }) => {
   return (<Container>
-    <TitleIcon><FontAwesomeIcon icon={faCoffee} /></TitleIcon>
+    <TitleIcon><FontAwesomeIcon icon={faCoffee} />Nomad Coffee</TitleIcon>
     {children}
   </Container>);
 }

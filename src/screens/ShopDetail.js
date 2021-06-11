@@ -48,7 +48,7 @@ const ShopContainer = styled.div`
 `
 
 const ShopInfo = styled.div`
-  margin: 60px 0px 0px 100px;
+  margin: 60px 100px 0px 100px;
   svg {
     margin-right: 20px;
   }
@@ -78,13 +78,27 @@ const ShopCategories = styled.div`
   font-weight: 600;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 `
 
 const Category = styled.span`
-    margin-left: 20px;
+    margin-right: 20px;
     cursor: pointer;
   `
+
+const CategoryUL = styled.div`
+  margin-bottom: 20px;
+`
+
+const CategoryLI = styled.div`
+  font-size: 40px;
+  font-weight: 400;
+`
 
 const Nav = styled.div`
   width: 100%;
@@ -126,12 +140,18 @@ const ShopDetail = () => {
               </ShopOwner>
               <ShopCategories>
                 <FontAwesomeIcon icon={faCoffee} />
-              Categories:
-              <div>{data?.seeCoffeeShop?.categories.map((item, index) => {
-                  return <Category key={index}>
-                    {item.name}
-                  </Category>
-                })}</div>
+                <div>
+                  <CategoryUL>
+                    Categories
+                </CategoryUL>
+                  <CategoryLI>
+                    <span>{data?.seeCoffeeShop?.categories.map((item, index) => {
+                      return <Category key={index}>
+                        {item.name}
+                      </Category>
+                    })}</span>
+                  </CategoryLI>
+                </div>
               </ShopCategories>
             </ShopInfo>
           </ShopContainer>
