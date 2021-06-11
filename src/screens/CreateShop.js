@@ -18,6 +18,7 @@ import routes from '../routes';
 const ShopLayout = styled.div`
   width: 600px;
   max-width: 600px;
+  margin-top: 30px;
 `
 
 const Title = styled.h3`

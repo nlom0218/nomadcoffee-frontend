@@ -16,7 +16,7 @@ const Contanier = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px 0px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 `
 
 const SHeader = styled.header`

@@ -1,4 +1,7 @@
 import { makeVar, useQuery, useReactiveVar } from '@apollo/client';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { syntaxError } from 'graphql';
 import gql from 'graphql-tag';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -13,6 +16,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 40px;
 `
 const SEE_COFFEE_SHOPS = gql`
    query seeCoffeeShops($page: Int!) {
@@ -70,6 +74,16 @@ const PageNum = styled.div`
   cursor: pointer;
 `
 
+const HomeTitle = styled.div`
+  width: 100%;
+  display: flex;
+  font-size: 36px;
+  svg {
+    margin-right: 20px;
+  }
+  margin-bottom: 10px;
+`
+
 const Home = () => {
   const page = useReactiveVar(pageVar)
   const { loading, data } = useQuery(SEE_COFFEE_SHOPS, {
@@ -86,6 +100,10 @@ const Home = () => {
       <Container>
         <PageTitle title="홈" />
         {loading ? <Loading /> : <>
+          <HomeTitle>
+            <FontAwesomeIcon icon={faCoffee} />
+            <div>Nomad Coffee</div>
+          </HomeTitle>
           <PageControl>
             {pageArr.map((item, index) =>
               <PageNum
