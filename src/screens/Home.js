@@ -1,9 +1,6 @@
-import { makeVar, useQuery, useReactiveVar } from '@apollo/client';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { syntaxError } from 'graphql';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { pageVar, setPage } from '../apollo';
@@ -21,6 +18,7 @@ const SEE_COFFEE_SHOPS = gql`
         name
         photos {
           url
+          rep
         }
       }
       totalShops
@@ -79,7 +77,15 @@ const Home = () => {
   for (let i = 0; i < pageNum; i++) {
     pageArr.push(i + 1)
   }
-  console.log(loading, data);
+
+  const findRepPhoto = (item) => {
+    const photo = item.photos.find(photo => photo.rep === true)
+    if (photo) {
+      return photo.url
+    }
+    return null
+  }
+
   return (
     <>
       <Header />
@@ -102,7 +108,7 @@ const Home = () => {
             {data?.seeCoffeeShops.shops.map((item, index) =>
               <Link key={index} to={`/shop/${item.id}`}>
                 <CoffeeShop>
-                  <ShopPhoto src={item.photos[0]?.url} />
+                  <ShopPhoto src={findRepPhoto(item) || item.photos[0].url} />
                   <ShopName>{item.name}</ShopName>
                 </CoffeeShop></Link>)}
           </CoffeeShops></>}

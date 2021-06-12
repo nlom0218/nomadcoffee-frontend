@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SCreateShopLayout = styled.div`
-  width: 600px;
-  max-width: 600px;
+  width: 700px;
+  max-width: 700px;
   /* margin-top: 30px; */
 `
 

@@ -6,8 +6,8 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { setEdit } from '../apollo';
 import DarkModeBtn from '../components/DarkModeBtn';
-import Header from '../components/Header';
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 import routes from '../routes';
@@ -50,7 +50,7 @@ const ShopContainer = styled.div`
 `
 
 const ShopInfo = styled.div`
-  margin: 60px 100px 0px 100px;
+  margin: 20px 100px 0px 100px;
   svg {
     margin-right: 20px;
   }
@@ -108,7 +108,7 @@ const Nav = styled.div`
   justify-content: flex-end;
   margin-top: 40px;
   padding-right: 100px;
-  font-size: 20px;
+  font-size: 24px;
   a {
     margin-left: 20px;
     color: ${props => props.theme.fontColor};
@@ -118,13 +118,11 @@ const Nav = styled.div`
 const ShopDetail = () => {
   const { id } = useParams()
   const { data, loading } = useQuery(SEE_COFFEE_SHOP, { variables: { id: parseInt(id) } })
-  console.log(data);
   const repPhotoUrl = (data) => {
     if (!data) {
       return
     } else {
       const repPhoto = data.seeCoffeeShop.photos.find(item => item.rep === true)
-      console.log(repPhoto);
       if (repPhoto) {
         return repPhoto.url
       } else {
@@ -144,7 +142,7 @@ const ShopDetail = () => {
             <Nav>
               <DarkModeBtn />
               <Link to={routes.HOME} ><FontAwesomeIcon icon={faHome} /></Link>
-              <Link
+              <Link onClick={() => setEdit("basic")}
                 to={`/shop/edit/${data?.seeCoffeeShop?.id}`}
               >{data?.seeCoffeeShop?.isMine ? <FontAwesomeIcon icon={faEdit} /> : null}</Link>
             </Nav>

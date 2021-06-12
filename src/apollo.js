@@ -5,6 +5,7 @@ import { createUploadLink } from 'apollo-upload-client'
 const TOKEN = "token"
 const PAGE = "page"
 const DARK = "dark"
+const EDIT = "edit"
 
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)))
 export const logInUser = (token) => {
@@ -31,6 +32,12 @@ export const pageVar = makeVar(parseInt(localStorage.getItem(PAGE)) || 1)
 export const setPage = (page) => {
   pageVar(page)
   localStorage.setItem(PAGE, page)
+}
+
+export const editVar = makeVar(localStorage.getItem(EDIT) || "basic")
+export const setEdit = (mode) => {
+  localStorage.setItem(EDIT, mode)
+  editVar(mode)
 }
 
 const httpLink = createUploadLink({

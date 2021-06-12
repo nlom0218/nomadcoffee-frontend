@@ -9,14 +9,13 @@ const SEE_COFFEE_SHOP_PHOTO = gql`
     seeCoffeeShopPhoto(id: $id) {
       url
       id
-      rep
     }
   }
 `
 
-const SET_REP_PHOTO = gql`
-  mutation setRepPhoto($shopId: Int!, $photoId: Int!) {
-    setRepPhoto(shopId: $shopId, photoId: $photoId) {
+const DELETE_COFFEE_SHOP_PHOTO = gql`
+  mutation deleteCoffeeShopPhoto($photoId: Int!) {
+    deleteCoffeeShopPhoto(photoId: $photoId) {
       ok
       error
     }
@@ -42,34 +41,32 @@ const Photo = styled.img`
   height: 30vh;
 `
 
-const RepBtn = styled.div`
+const DelBtn = styled.div`
   width: 100%;
   text-align: center;
   padding: 10px;
   cursor: pointer;
 `
 
-const EditRepPhoto = ({ id: shopId }) => {
-  const { data, loading } = useQuery(SEE_COFFEE_SHOP_PHOTO, { variables: { id: shopId } })
-  const [setRepPhoto, { loading: repLoading }] = useMutation(SET_REP_PHOTO, {
+const DelPhoto = ({ id }) => {
+  const { data, loading } = useQuery(SEE_COFFEE_SHOP_PHOTO, { variables: { id } })
+  const [deleteCoffeeShopPhoto, { loading: delLoading }] = useMutation(DELETE_COFFEE_SHOP_PHOTO, {
     onCompleted: () => window.location.reload()
   })
-  const onClicRepBtn = (e) => {
+  const onClickDelBtn = (e) => {
     const { target: { id } } = e
-    if (repLoading) {
+    if (delLoading) {
       return
     }
-    setRepPhoto({ variables: { photoId: parseInt(id), shopId } })
+    deleteCoffeeShopPhoto({ variables: { photoId: parseInt(id) } })
   }
   return (loading ? <Loading /> : <Container>
     {data?.seeCoffeeShopPhoto?.map((item, index) => <PhotoContainer key={index}>
       <Photo src={item.url} />
-      <RepBtn onClick={onClicRepBtn} id={item.id}>
-        {item.rep ? "현재 대표 사진입니다." : "대표 사진으로 설정하기"}
-      </RepBtn>
+      <DelBtn onClick={onClickDelBtn} id={item.id}>삭제하기</DelBtn>
     </PhotoContainer>
     )}
   </Container>);
 }
 
-export default EditRepPhoto;
+export default DelPhoto;
