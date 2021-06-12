@@ -8,7 +8,7 @@ import { darkModeVar, disableDarkMode, enableDarkMode } from '../apollo';
 const Button = styled.span`
   cursor: pointer;
   svg {
-    font-size: 20px;
+    font-size: 24px;
   }
 `
 

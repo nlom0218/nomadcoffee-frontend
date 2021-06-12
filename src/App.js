@@ -13,6 +13,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import Profile from './screens/Profile';
 import CreateShop from './screens/CreateShop';
 import ShopDetail from './screens/ShopDetail';
+import EditShop from './screens/EditShop';
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path={routes.ADD}><CreateShop /></Route>
               <Route exact path={routes.USER}><Profile /></Route>
               <Route exact path={routes.SHOP_DETATIL}><ShopDetail /></Route>
+              <Route path={routes.SHOP_EDIT}><EditShop /></Route>
               <Route><NotFound /></Route>
             </Switch>
           </Router>

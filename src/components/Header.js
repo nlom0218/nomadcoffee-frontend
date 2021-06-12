@@ -15,7 +15,7 @@ const Contanier = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 0px;
+  padding: 20px 0px;
   margin-bottom: 40px;
 `
 
@@ -28,7 +28,7 @@ const SHeader = styled.header`
 
 const AuthLink = styled.div`
   display: flex;
-  font-size: 16px;
+  font-size: 20px;
 `
 
 const LoginLink = styled.div`

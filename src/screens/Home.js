@@ -7,17 +7,12 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { pageVar, setPage } from '../apollo';
+import BasicContainer from '../components/BasicContainer';
+import BasicHomeTitle from '../components/BasicHomeTitle';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 
-const Container = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-`
 const SEE_COFFEE_SHOPS = gql`
    query seeCoffeeShops($page: Int!) {
     seeCoffeeShops(page: $page) {
@@ -74,16 +69,6 @@ const PageNum = styled.div`
   cursor: pointer;
 `
 
-const HomeTitle = styled.div`
-  width: 100%;
-  display: flex;
-  font-size: 36px;
-  svg {
-    margin-right: 20px;
-  }
-  margin-bottom: 10px;
-`
-
 const Home = () => {
   const page = useReactiveVar(pageVar)
   const { loading, data } = useQuery(SEE_COFFEE_SHOPS, {
@@ -94,16 +79,14 @@ const Home = () => {
   for (let i = 0; i < pageNum; i++) {
     pageArr.push(i + 1)
   }
+  console.log(loading, data);
   return (
     <>
       <Header />
-      <Container>
+      <BasicContainer>
         <PageTitle title="홈" />
         {loading ? <Loading /> : <>
-          <HomeTitle>
-            <FontAwesomeIcon icon={faCoffee} />
-            <div>Nomad Coffee</div>
-          </HomeTitle>
+          <BasicHomeTitle title="Nomad Coffee" />
           <PageControl>
             {pageArr.map((item, index) =>
               <PageNum
@@ -123,7 +106,7 @@ const Home = () => {
                   <ShopName>{item.name}</ShopName>
                 </CoffeeShop></Link>)}
           </CoffeeShops></>}
-      </Container>
+      </BasicContainer>
     </>);
 }
 

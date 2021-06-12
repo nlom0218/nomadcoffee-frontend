@@ -15,6 +15,7 @@ import routes from '../routes';
 const SEE_COFFEE_SHOP = gql`
   query seeCoffeeShop($id: Int!) {
     seeCoffeeShop(id: $id) {
+      id
       name
       categories {
         name
@@ -25,6 +26,7 @@ const SEE_COFFEE_SHOP = gql`
       }
       photos {
         url
+        rep
       }
     }
   }
@@ -117,17 +119,34 @@ const ShopDetail = () => {
   const { id } = useParams()
   const { data, loading } = useQuery(SEE_COFFEE_SHOP, { variables: { id: parseInt(id) } })
   console.log(data);
+  const repPhotoUrl = (data) => {
+    if (!data) {
+      return
+    } else {
+      const repPhoto = data.seeCoffeeShop.photos.find(item => item.rep === true)
+      console.log(repPhoto);
+      if (repPhoto) {
+        return repPhoto.url
+      } else {
+        return null
+      }
+    }
+  }
   return (
     loading ? <Loading /> :
       <>
         <PageTitle title={data?.seeCoffeeShop?.name} />
         <Container
-          style={{ backgroundImage: `url(${data?.seeCoffeeShop.photos[0]?.url})` }}>
+          style={{
+            backgroundImage: `url(${repPhotoUrl(data) ? repPhotoUrl(data) : data?.seeCoffeeShop.photos[0]?.url})`
+          }}>
           <ShopContainer>
             <Nav>
               <DarkModeBtn />
               <Link to={routes.HOME} ><FontAwesomeIcon icon={faHome} /></Link>
-              <Link>{data?.seeCoffeeShop?.isMine ? <FontAwesomeIcon icon={faEdit} /> : null}</Link>
+              <Link
+                to={`/shop/edit/${data?.seeCoffeeShop?.id}`}
+              >{data?.seeCoffeeShop?.isMine ? <FontAwesomeIcon icon={faEdit} /> : null}</Link>
             </Nav>
             <ShopInfo>
               <ShopName>
