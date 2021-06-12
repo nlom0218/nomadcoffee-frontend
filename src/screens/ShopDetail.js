@@ -44,8 +44,8 @@ const Container = styled.div`
 
 const ShopContainer = styled.div`
   min-height: 100vh;
-  width: 1200px;
-  min-width: 1200px;
+  width: 70%;
+  min-width: 1000px;
   background-color: ${props => props.theme.opacityBgColor};
 `
 
@@ -57,7 +57,7 @@ const ShopInfo = styled.div`
 `
 
 const ShopName = styled.div`
-  font-size: 100px;
+  font-size: 80px;
   font-weight: 600;
 `
 
@@ -113,6 +113,36 @@ const Nav = styled.div`
     margin-left: 20px;
     color: ${props => props.theme.fontColor};
   }
+`
+
+const ImgContainer = styled.div`
+  position: absolute;
+  height: 95vh;
+  top: 30px;
+  right: 30px;
+  bottom: -30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+`
+
+const ImgTitle = styled.div`
+  background-color: ${props => props.theme.opacityBgColor};
+  border-radius: 5px;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 20px;
+`
+
+const ShopImg = styled.img`
+  width: 20vw;
+  height: 25vh;
+  :not(last-child){
+    margin-bottom: 20px;
+  }
+  border-radius: 5%;
 `
 
 const ShopDetail = () => {
@@ -172,6 +202,12 @@ const ShopDetail = () => {
               </ShopCategories>
             </ShopInfo>
           </ShopContainer>
+          <ImgContainer>
+            <ImgTitle>Cafe Photos</ImgTitle>
+            {data?.seeCoffeeShop?.photos.map((item, index) => <React.Fragment key={index}>
+              <ShopImg src={item.url} />
+            </React.Fragment>)}
+          </ImgContainer>
         </Container >
       </>
   );
