@@ -19,8 +19,14 @@ const UPLOAD_COFFEE_SHOP_PHOTO = gql`
   }
 `
 
+const Loading = styled.div`
+font-size: 24px;
+font-weight: 600;
+color: ${props => props.theme.bgColor};
+`
+
 const UploadShopPhoto = ({ id }) => {
-  const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm({
+  const { register, formState: { errors } } = useForm({
     mode: "onChange"
   })
 
@@ -40,12 +46,6 @@ const UploadShopPhoto = ({ id }) => {
       })
     }
   }
-
-  const Loading = styled.div`
-  font-size: 24px;
-  font-weight: 600;
-  color: ${props => props.theme.bgColor};
-`
 
   return (<CreateShopLayout>
     <FormLayout>
