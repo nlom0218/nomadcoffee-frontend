@@ -32,6 +32,7 @@ function App() {
               <Route exact path={routes.USER}><Profile /></Route>
               <Route exact path={routes.SHOP_DETATIL}><ShopDetail /></Route>
               <Route path={routes.SHOP_EDIT}><EditShop /></Route>
+              <Route path={"/notFound/404"}><NotFound /></Route>
               <Route><NotFound /></Route>
             </Switch>
           </Router>

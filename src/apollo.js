@@ -6,6 +6,7 @@ const TOKEN = "token"
 const PAGE = "page"
 const DARK = "dark"
 const EDIT = "edit"
+const USER = "user"
 
 export const isLoggedInVar = makeVar(Boolean(localStorage.getItem(TOKEN)))
 export const logInUser = (token) => {
@@ -38,6 +39,12 @@ export const editVar = makeVar(localStorage.getItem(EDIT) || "basic")
 export const setEdit = (mode) => {
   localStorage.setItem(EDIT, mode)
   editVar(mode)
+}
+
+export const userVar = makeVar(localStorage.getItem(USER) || "basic")
+export const setUser = (mode) => {
+  localStorage.setItem(USER, mode)
+  userVar(mode)
 }
 
 const httpLink = createUploadLink({

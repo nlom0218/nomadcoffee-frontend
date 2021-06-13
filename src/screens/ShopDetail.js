@@ -6,7 +6,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { setEdit } from '../apollo';
+import { setEdit, setUser } from '../apollo';
 import DarkModeBtn from '../components/DarkModeBtn';
 import LikesBtn from '../components/LikesBtn';
 import Loading from '../components/Loading';
@@ -194,7 +194,7 @@ const ShopDetail = () => {
               <ShopOwner>
                 <FontAwesomeIcon icon={faCoffee} />
               Cafe Owner:
-              <Link to={`/${data?.seeCoffeeShop?.user?.username}`}>
+              <Link to={`/${data?.seeCoffeeShop?.user?.username}`} onClick={() => setUser("basic")}>
                   <div>{data?.seeCoffeeShop?.user?.username}</div>
                 </Link>
               </ShopOwner>

@@ -1,6 +1,4 @@
 import { gql, useQuery, useReactiveVar } from '@apollo/client';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { useParams } from 'react-router';
 import styled from 'styled-components';
@@ -13,6 +11,8 @@ import EditRepPhoto from '../components/coffeeShop/EditRepPhoto';
 import EditShopBasic from '../components/coffeeShop/EditShopBasic';
 import UploadShopPhoto from '../components/coffeeShop/UploadShopPhoto';
 import Header from '../components/Header';
+import ListContainer from '../components/ListContainer';
+import ListName from '../components/ListName';
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 
@@ -40,33 +40,6 @@ const Container = styled.div`
   padding: 20px 0px 0px 20px;
 `
 
-const ListContainer = styled.div`
-  width: 280px;
-  min-width: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  border-right: 1px solid ${props => props.theme.fontColor};
-  /* padding-right: 100px; */
-  margin-right: 80px;
-`
-const ListName = styled.div`
-  :not(:last-child) {
-    margin-bottom: 30px;
-  }
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  svg {
-    margin-right: 20px;
-  }
-  span {
-    font-size: 24px;
-    cursor: pointer;
-  }
-`
-
 const EidtContainer = styled.div`
 `
 
@@ -83,23 +56,18 @@ const EditShop = () => {
       <Container>
         <ListContainer>
           <ListName>
-            <FontAwesomeIcon icon={faCircle} />
             <span onClick={() => { setEdit("basic") }}>카페 이름 수정하기</span>
           </ListName>
           <ListName>
-            <FontAwesomeIcon icon={faCircle} />
             <span onClick={() => { setEdit("upload") }}>카페 사진 올리기</span>
           </ListName>
           <ListName>
-            <FontAwesomeIcon icon={faCircle} />
             <span onClick={() => { setEdit("delPhoto") }}>카페 사진 삭제하기</span>
           </ListName>
           <ListName>
-            <FontAwesomeIcon icon={faCircle} />
             <span onClick={() => { setEdit("setRep") }}>대표 사진 설정하기</span>
           </ListName>
           <ListName>
-            <FontAwesomeIcon icon={faCircle} />
             <span onClick={() => { setEdit("del") }}>카페 삭제하기</span>
           </ListName>
         </ListContainer>

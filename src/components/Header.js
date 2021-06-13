@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { isLoggedInVar, logOutUser, setPage } from '../apollo';
+import { isLoggedInVar, logOutUser, setPage, setUser } from '../apollo';
 import useUser from '../hooks/useUser';
 import routes from "../routes"
 import DarkModeBtn from './DarkModeBtn';
@@ -63,7 +63,7 @@ const Header = () => {
         {isLoggedIn ?
           <Nav>
             <Link to={routes.HOME} onClick={() => setPage(1)}><FontAwesomeIcon icon={faHome} /></Link>
-            <Link to={`/${user?.username}`}><FontAwesomeIcon icon={faUser} /></Link>
+            <Link to={`/${user?.username}`} onClick={() => setUser("basic")}><FontAwesomeIcon icon={faUser} /></Link>
           </Nav>
           : null}
         <LoginLink onClick={onClickLink}>{isLoggedIn ? "로그아웃" : "로그인"}</LoginLink>
