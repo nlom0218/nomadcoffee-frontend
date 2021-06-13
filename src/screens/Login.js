@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { logInUser } from '../apollo';
 import AuthLayout from '../components/auth/AuthLayout';
@@ -11,6 +11,7 @@ import FormLayout from '../components/auth/FormLayout';
 import MsgContainer from '../components/auth/MsgContainer';
 import PageTitle from '../components/PageTitle';
 import { Button, Input } from '../components/style';
+import useUser from '../hooks/useUser';
 import routes from '../routes';
 
 const LoginMsg = styled.span`
@@ -61,6 +62,7 @@ const Login = () => {
     })
   }
 
+  const user = useUser()
   return (<AuthLayout>
     <PageTitle title="로그인" />
     <LoginMsg>
@@ -90,6 +92,7 @@ const Login = () => {
     </FormLayout>
     <MsgContainer msg="계정이 없으신가요?" link={routes.SIGNUP} linkText="가입하기" />
     <MsgContainer msg="손님이신가요?" link={routes.HOME} linkText="홈으로" />
+    {user && <Redirect to={routes.HOME} />}
   </AuthLayout>);
 }
 
