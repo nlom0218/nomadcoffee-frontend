@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { faCoffee, faEdit, faHome } from '@fortawesome/free-solid-svg-icons';
+import { faCoffee, faEdit, faHeart, faHome } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
 import React from 'react';
@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { setEdit } from '../apollo';
 import DarkModeBtn from '../components/DarkModeBtn';
+import LikesBtn from '../components/LikesBtn';
 import Loading from '../components/Loading';
 import PageTitle from '../components/PageTitle';
 import routes from '../routes';
@@ -17,6 +18,8 @@ const SEE_COFFEE_SHOP = gql`
     seeCoffeeShop(id: $id) {
       id
       name
+      isLiked
+      likes
       categories {
         name
       }
@@ -35,7 +38,7 @@ const SEE_COFFEE_SHOP = gql`
 const Container = styled.div`
   width: 100%;
   min-width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-position: center;
   background-size: cover;
   display: flex;
@@ -43,14 +46,13 @@ const Container = styled.div`
 `
 
 const ShopContainer = styled.div`
-  min-height: 100vh;
   width: 70%;
   min-width: 1000px;
   background-color: ${props => props.theme.opacityBgColor};
 `
 
 const ShopInfo = styled.div`
-  margin: 20px 100px 0px 100px;
+  margin: 20px 100px 30px 100px;
   svg {
     margin-right: 20px;
   }
@@ -69,6 +71,7 @@ const ShopOwner = styled.div`
   justify-content: flex-start;
   align-items: center;
   div {
+    color: ${props => props.theme.fontColor};
     margin-left: 20px;
     cursor: pointer;
   }
@@ -104,10 +107,11 @@ const CategoryLI = styled.div`
 
 const Nav = styled.div`
   width: 100%;
+  margin-top: 30px;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 40px;
-  padding-right: 100px;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0px 100px;
   font-size: 24px;
   a {
     margin-left: 20px;
@@ -170,11 +174,18 @@ const ShopDetail = () => {
           }}>
           <ShopContainer>
             <Nav>
-              <DarkModeBtn />
-              <Link to={routes.HOME} ><FontAwesomeIcon icon={faHome} /></Link>
-              <Link onClick={() => setEdit("basic")}
-                to={`/shop/edit/${data?.seeCoffeeShop?.id}`}
-              >{data?.seeCoffeeShop?.isMine ? <FontAwesomeIcon icon={faEdit} /> : null}</Link>
+              <LikesBtn
+                isLiked={data?.seeCoffeeShop?.isLiked}
+                likes={data?.seeCoffeeShop?.likes}
+                id={data?.seeCoffeeShop?.id}
+              />
+              <div>
+                <DarkModeBtn />
+                <Link to={routes.HOME} ><FontAwesomeIcon icon={faHome} /></Link>
+                <Link onClick={() => setEdit("basic")}
+                  to={`/shop/edit/${data?.seeCoffeeShop?.id}`}
+                >{data?.seeCoffeeShop?.isMine ? <FontAwesomeIcon icon={faEdit} /> : null}</Link>
+              </div>
             </Nav>
             <ShopInfo>
               <ShopName>
@@ -183,7 +194,9 @@ const ShopDetail = () => {
               <ShopOwner>
                 <FontAwesomeIcon icon={faCoffee} />
               Cafe Owner:
-              <div>{data?.seeCoffeeShop?.user?.username}</div>
+              <Link to={`/${data?.seeCoffeeShop?.user?.username}`}>
+                  <div>{data?.seeCoffeeShop?.user?.username}</div>
+                </Link>
               </ShopOwner>
               <ShopCategories>
                 <FontAwesomeIcon icon={faCoffee} />
