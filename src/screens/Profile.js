@@ -91,7 +91,7 @@ const Profile = () => {
           {userMode === "basic" && <BasicInfo data={{ ...data }} />}
           {userMode === "cafe" && <UserCafe username={data?.seeProfile?.username} />}
           {userMode === "likes" && <UserLikes />}
-          {userMode === "edit" && <EditUser />}
+          {userMode === "edit" && <EditUser preData={{ ...data }} />}
           {userMode === "avatar" && <UserAvatar />}
           {userMode === "del" && <DelUser />}
         </div>

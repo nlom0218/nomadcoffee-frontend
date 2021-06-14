@@ -28,8 +28,7 @@ const Loading = styled.div`
 const UserAvatar = () => {
   const { register, formState: { errors } } = useForm({ mode: "onChange" })
   const [editAvatar, { loading }] = useMutation(EDIT_AVATAR, {
-    onCompleted: () => {
-      console.log("He");
+    onCompleted: (data) => {
       window.location.reload()
     }
   })
