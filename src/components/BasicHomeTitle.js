@@ -4,7 +4,6 @@ import React from 'react';
 import styled from 'styled-components';
 
 const SBasicHomeTitle = styled.div`
-  width: 100%;
   display: flex;
   font-size: 36px;
   svg {

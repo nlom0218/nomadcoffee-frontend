@@ -8,9 +8,11 @@ import { isLoggedInVar, logOutUser, setPage, setUser } from '../apollo';
 import useUser from '../hooks/useUser';
 import routes from "../routes"
 import DarkModeBtn from './DarkModeBtn';
+import Search from './Search';
 
 const Contanier = styled.div`
   width: 100%;
+  min-width: 1200px;
   border-bottom: 1px solid ${props => props.theme.fontColor};
   display: flex;
   align-items: center;
@@ -42,6 +44,10 @@ const Nav = styled.div`
   }
 `
 
+const LeftContents = styled.div`
+  display: flex;
+`
+
 
 const Header = () => {
   const isLoggedIn = useReactiveVar(isLoggedInVar)
@@ -58,7 +64,10 @@ const Header = () => {
   const user = useUser()
   return (<Contanier>
     <SHeader>
-      <DarkModeBtn />
+      <LeftContents>
+        <DarkModeBtn />
+        <Search />
+      </LeftContents>
       <AuthLink>
         {isLoggedIn ?
           <Nav>

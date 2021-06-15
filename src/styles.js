@@ -39,6 +39,7 @@ export const GlobalStyles = createGlobalStyle`
     color: ${props => props.theme.fontColor};
     font-size: 16px;
     width: 100%;
+    min-width: 1200px;
 
   }
   a {

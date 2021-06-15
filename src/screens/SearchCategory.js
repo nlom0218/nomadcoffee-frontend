@@ -1,20 +1,19 @@
-import { useQuery, useReactiveVar } from '@apollo/client';
-import gql from 'graphql-tag';
+import { gql, useQuery, useReactiveVar } from '@apollo/client';
 import React from 'react';
+import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { pageVar, setPage } from '../apollo';
+import { pageVar } from '../apollo';
 import BasicContainer from '../components/BasicContainer';
 import BasicHomeTitle from '../components/BasicHomeTitle';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 import PageControl from '../components/pageControl';
-import PageTitle from '../components/PageTitle';
 
-const SEE_COFFEE_SHOPS = gql`
-   query seeCoffeeShops($page: Int!) {
-    seeCoffeeShops(page: $page) {
-      shops {
+const SEARCH_CATEGORY = gql`
+  query searchCategory($category: String!, $page:Int!) {
+    searchCategory(category: $category, page: $page) {
+      coffeeShops{
         id
         name
         photos {
@@ -33,13 +32,13 @@ const TitleAndPage = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
 `
-
-
 const CoffeeShops = styled.div`
   display: grid;
+  width: 100%;
+  min-width: 1200px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr;
-  gap: 40px 20px;
+  gap: 40px 30px;
   
 `
 
@@ -53,20 +52,24 @@ const CoffeeShop = styled.div`
 `
 
 const ShopPhoto = styled.img`
-  width: 26vw;
-  height: 30vh;
+  width: 100%;
+  min-width: 390px;
+  height: 300px;
 `
 
 const ShopName = styled.span`
-  padding: 10px 20px;
+  padding: 10px 0px 10px 20px ;
 `
 
-const Home = () => {
+const SearchCategory = () => {
+  const { category: category } = useParams()
   const page = useReactiveVar(pageVar)
-  const { loading, data } = useQuery(SEE_COFFEE_SHOPS, {
-    variables: { page }
+  const { data, loading } = useQuery(SEARCH_CATEGORY, {
+    variables: {
+      page,
+      category
+    }
   })
-
   const findRepPhoto = (item) => {
     const photo = item.photos.find(photo => photo.rep === true)
     if (photo) {
@@ -74,27 +77,25 @@ const Home = () => {
     }
     return null
   }
-
-  return (
-    <>
-      <Header />
-      <BasicContainer>
-        <PageTitle title="홈" />
-        {loading ? <Loading /> : <>
+  return (<>
+    <Header />
+    <BasicContainer>
+      {loading ? <Loading /> :
+        <>
           <TitleAndPage>
-            <BasicHomeTitle title="Nomad Coffee" />
-            <PageControl totalShops={data?.seeCoffeeShops?.totalShops} />
+            <BasicHomeTitle title={`Search: ${category}`} />
+            <PageControl totalShops={data?.searchCategory?.totalShops} />
           </TitleAndPage>
           <CoffeeShops>
-            {data?.seeCoffeeShops.shops.map((item, index) =>
-              <Link key={index} to={`/shop/${item.id}`}>
-                <CoffeeShop>
-                  <ShopPhoto src={findRepPhoto(item) || item.photos[0].url} />
-                  <ShopName>{item.name}</ShopName>
-                </CoffeeShop></Link>)}
-          </CoffeeShops></>}
-      </BasicContainer>
-    </>);
+            {data?.searchCategory?.coffeeShops.map((item, index) => <Link key={index} to={`/shop/${item.id}`}>
+              <CoffeeShop>
+                <ShopPhoto src={findRepPhoto(item) || item.photos[0].url} />
+                <ShopName>{item.name}</ShopName>
+              </CoffeeShop></Link>)}
+          </CoffeeShops>
+        </>}
+    </BasicContainer>
+  </>);
 }
 
-export default Home;
+export default SearchCategory;

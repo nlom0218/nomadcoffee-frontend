@@ -14,6 +14,7 @@ import Profile from './screens/Profile';
 import CreateShop from './screens/CreateShop';
 import ShopDetail from './screens/ShopDetail';
 import EditShop from './screens/EditShop';
+import SearchCategory from './screens/SearchCategory';
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
               <Route exact path={routes.USER}><Profile /></Route>
               <Route exact path={routes.SHOP_DETATIL}><ShopDetail /></Route>
               <Route path={routes.SHOP_EDIT}><EditShop /></Route>
+              <Route path={routes.SEARCH_CATEGRORY}><SearchCategory /></Route>
               <Route path={"/notFound/404"}><NotFound /></Route>
               <Route><NotFound /></Route>
             </Switch>
