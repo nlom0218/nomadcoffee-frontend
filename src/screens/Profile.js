@@ -2,7 +2,6 @@ import { useQuery, useReactiveVar } from '@apollo/client';
 import gql from 'graphql-tag';
 import React from 'react';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { setUser, userVar } from '../apollo';
 import BasicContainer from '../components/BasicContainer';
@@ -19,6 +18,7 @@ import UserAvatar from '../components/user/UserAvatar';
 import UserCafe from '../components/user/UserCafe';
 import UserLikes from '../components/user/UserLikes';
 import routes from '../routes';
+import CreateShop from './CreateShop';
 
 const SEE_PROFILE = gql`
   query seeProfile($username: String!) {
@@ -79,9 +79,7 @@ const Profile = () => {
               <span onClick={() => { setUser("avatar") }}>프로필 사진 수정하기</span>
             </ListName>
             <ListName>
-              <Link to={routes.ADD}>
-                <AddCafe>카페 만들기</AddCafe>
-              </Link>
+              <span onClick={() => { setUser("creation") }}>카페 만들기</span>
             </ListName>
             <ListName>
               <span onClick={() => { setUser("del") }}>계정 삭제하기</span>
@@ -93,7 +91,8 @@ const Profile = () => {
           {userMode === "likes" && <UserLikes />}
           {userMode === "edit" && <EditUser preData={{ ...data }} />}
           {userMode === "avatar" && <UserAvatar />}
-          {userMode === "del" && <DelUser />}
+          {userMode === "del" && <DelUser id={data?.seeProfile?.id} username={data?.seeProfile?.username} />}
+          {userMode === "creation" && <CreateShop />}
         </div>
       </Container>
     </BasicContainer>

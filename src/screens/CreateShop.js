@@ -18,10 +18,8 @@ const CreateShop = () => {
 
   return (
     <>
-      <Header />
       <CreateShopLayout>
         <PageTitle title="만들기" />
-        <BasicHomeTitle title="Add Cafe" />
         <CreateForm>
           {!photo ?
             <InfoCreate setPhoto={setPhoto} setShopId={setShopId} />
