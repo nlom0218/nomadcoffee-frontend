@@ -12,9 +12,10 @@ const SListName = styled.div`
   align-items: center;
   svg {
     margin-right: 20px;
+    font-size: 10px;
   }
   span {
-    font-size: 24px;
+    font-size: 22px;
     cursor: pointer;
   }
 `

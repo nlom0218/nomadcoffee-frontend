@@ -7,6 +7,7 @@ import BasicContainer from '../components/BasicContainer';
 import BasicHomeTitle from '../components/BasicHomeTitle';
 import DelPhoto from '../components/coffeeShop/DelPhoto';
 import DelShop from '../components/coffeeShop/DelShop';
+import EditCategory from '../components/coffeeShop/EditCategory';
 import EditRepPhoto from '../components/coffeeShop/EditRepPhoto';
 import EditShopBasic from '../components/coffeeShop/EditShopBasic';
 import UploadShopPhoto from '../components/coffeeShop/UploadShopPhoto';
@@ -68,6 +69,9 @@ const EditShop = () => {
             <span onClick={() => { setEdit("setRep") }}>대표 사진 설정하기</span>
           </ListName>
           <ListName>
+            <span onClick={() => { setEdit("category") }}>카테고리 수정하기</span>
+          </ListName>
+          <ListName>
             <span onClick={() => { setEdit("del") }}>카페 삭제하기</span>
           </ListName>
         </ListContainer>
@@ -76,6 +80,7 @@ const EditShop = () => {
           {editMode === "upload" && <UploadShopPhoto id={data?.seeCoffeeShop?.id} />}
           {editMode === "delPhoto" && <DelPhoto id={data?.seeCoffeeShop?.id} />}
           {editMode === "setRep" && <EditRepPhoto id={data?.seeCoffeeShop?.id} />}
+          {editMode === "category" && <EditCategory id={data?.seeCoffeeShop?.id} />}
           {editMode === "del" && <DelShop name={data?.seeCoffeeShop?.name} id={data?.seeCoffeeShop?.id} />}
         </EidtContainer>
       </Container>
