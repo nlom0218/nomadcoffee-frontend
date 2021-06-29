@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import gql from 'graphql-tag';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect, useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
@@ -9,6 +9,7 @@ import AuthLayout from '../components/auth/AuthLayout';
 import ErrorMsg from '../components/auth/ErrorMsg';
 import FormLayout from '../components/auth/FormLayout';
 import MsgContainer from '../components/auth/MsgContainer';
+import ErrMsg from '../components/ErrMsg';
 import PageTitle from '../components/PageTitle';
 import { Button, Input } from '../components/style';
 import useUser from '../hooks/useUser';
@@ -29,6 +30,7 @@ const LOGIN_MUTATION = gql`
 `
 
 const Login = () => {
+  const [errMsg, setErrMsg] = useState(null)
   const location = useLocation()
   const history = useHistory()
   const { register, handleSubmit, formState: { errors, isValid } } = useForm({
@@ -41,6 +43,7 @@ const Login = () => {
   const onCompleted = (data) => {
     const { login: { ok, token, error } } = data
     if (!ok) {
+      setErrMsg(error)
       return
     }
     if (token) {
@@ -61,7 +64,6 @@ const Login = () => {
       variables: { username, password }
     })
   }
-
   const user = useUser()
   return (<AuthLayout>
     <PageTitle title="로그인" />
@@ -89,6 +91,7 @@ const Login = () => {
         <Button
           type="submit" value={loading ? "loading..." : "로그인"} disabled={!isValid} />
       </form>
+      {errMsg !== null && <ErrMsg errMsg={errMsg} />}
     </FormLayout>
     <MsgContainer msg="계정이 없으신가요?" link={routes.SIGNUP} linkText="가입하기" />
     <MsgContainer msg="손님이신가요?" link={routes.HOME} linkText="홈으로" />

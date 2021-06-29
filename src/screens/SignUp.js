@@ -1,11 +1,12 @@
 import { gql, useMutation } from '@apollo/client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router';
 import AuthLayout from '../components/auth/AuthLayout';
 import ErrorMsg from '../components/auth/ErrorMsg';
 import FormLayout from '../components/auth/FormLayout';
 import MsgContainer from '../components/auth/MsgContainer';
+import ErrMsg from '../components/ErrMsg';
 import PageTitle from '../components/PageTitle';
 import { Button, Input } from '../components/style';
 import routes from '../routes';
@@ -20,6 +21,7 @@ const CREATE_ACCOUNT_MUTATION = gql`
 `
 
 const SignUp = () => {
+  const [errMsg, setErrMsg] = useState(null)
   const history = useHistory()
   const { register, handleSubmit, formState: { errors, isValid }, getValues } = useForm({
     mode: "onChange"
@@ -28,7 +30,7 @@ const SignUp = () => {
     const { createAccount: { ok, error } } = data
     const { username, password } = getValues()
     if (!ok) {
-      console.log(error);
+      setErrMsg(error)
       return
     }
     history.push(routes.LOGIN, { username, password, message: "계정이 생성되었습니다." })
@@ -70,6 +72,7 @@ const SignUp = () => {
         <ErrorMsg msg={errors?.password?.message} />
         <Button type="submit" value={loading ? "loading..." : "가입"} disabled={!isValid} />
       </form>
+      {errMsg !== null && <ErrMsg errMsg={errMsg} />}
     </FormLayout>
     <MsgContainer msg="계정이 있으신가요?" link={routes.LOGIN} linkText="로그인" />
   </AuthLayout>);
