@@ -9,9 +9,9 @@ import styled from 'styled-components';
 import { setPage } from '../apollo';
 
 const Container = styled.div`
-  width: 400px;
+  width: 600px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-left: 20px;
 `
 
@@ -29,7 +29,7 @@ const Form = styled.form`
 
 const Input = styled.input`
   width: 100%;
-  font-size: 20px;
+  font-size: 18px;
   padding-left: 10px;
   border-bottom: 1px solid ${props => props.theme.fontColor};
 `

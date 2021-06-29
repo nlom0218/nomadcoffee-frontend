@@ -46,6 +46,7 @@ const Nav = styled.div`
 
 const LeftContents = styled.div`
   display: flex;
+  align-items: center;
 `
 
 
