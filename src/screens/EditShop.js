@@ -42,6 +42,7 @@ const Container = styled.div`
 `
 
 const EidtContainer = styled.div`
+  width: 100%;
 `
 
 

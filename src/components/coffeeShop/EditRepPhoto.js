@@ -38,8 +38,8 @@ const PhotoContainer = styled.div`
 `
 
 const Photo = styled.img`
-  width: 26vw;
-  height: 30vh;
+  width: 100%;
+  height: 33vh;
 `
 
 const RepBtn = styled.div`
