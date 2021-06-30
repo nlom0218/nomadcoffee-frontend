@@ -6,7 +6,7 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import NotFound from './screens/NotFound';
 import { darkTheme, GlobalStyles, lightTheme } from './styles';
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 import routes from './routes';
 import SignUp from './screens/SignUp';
 import { HelmetProvider } from 'react-helmet-async';
