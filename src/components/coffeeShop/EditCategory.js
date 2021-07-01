@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
+import { faCheckSquare, faSquare, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import gql from 'graphql-tag';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Loading from '../Loading';
+import AddCategories from './AddCategories';
+import DelCategories from './DelCategories';
 
 const SEE_CATEGORIES_QUERY = gql`
   query seeCategories($shopId: Int!) {
@@ -44,45 +46,21 @@ const RemoveText = styled.span`
 
 const AddText = styled.span``
 
-const RemoveContainer = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-
-const Category = styled.div`
-  display: flex;
-  margin-bottom: 50px;
-  font-size: 24px;
-`
-
-const CategoryName = styled.label`
-  margin-right: 10px;
-`
-
-const RemoveBtn = styled.input`
-`
-
 const EditCategory = ({ id }) => {
+  const [mode, setMode] = useState("add")
   const { data, loading } = useQuery(SEE_CATEGORIES_QUERY, {
     variables: {
       shopId: id
     }
   })
+
   return (loading ? <Loading /> : <Container>
     <Text>
-      <AddText>카데고리 추가하기</AddText>
-      <RemoveText>카테고리 삭제하기</RemoveText>
+      <AddText onClick={() => setMode("add")}>카데고리 추가하기</AddText>
+      <RemoveText onClick={() => setMode("remove")}>카테고리 삭제하기</RemoveText>
     </Text>
-    <RemoveContainer>
-      {data?.seeCategories.map((item, index) => <Category key={index}>
-        <CategoryName for={item.name}>{item.name}</CategoryName>
-        <RemoveBtn type="text" name="category" value={item.name} checked={false} />
-      </Category>)}
-    </RemoveContainer>
+    {mode === "add" && <AddCategories />}
+    {mode === "remove" && <DelCategories data={data} shopId={id} />}
   </Container>
   );
 }
