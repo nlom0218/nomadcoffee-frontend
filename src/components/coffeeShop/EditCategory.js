@@ -59,7 +59,7 @@ const EditCategory = ({ id }) => {
       <AddText onClick={() => setMode("add")}>카데고리 추가하기</AddText>
       <RemoveText onClick={() => setMode("remove")}>카테고리 삭제하기</RemoveText>
     </Text>
-    {mode === "add" && <AddCategories />}
+    {mode === "add" && <AddCategories shopId={id} />}
     {mode === "remove" && <DelCategories data={data} shopId={id} />}
   </Container>
   );
