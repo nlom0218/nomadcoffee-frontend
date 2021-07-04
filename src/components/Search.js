@@ -41,7 +41,7 @@ const Search = () => {
   })
   const onValid = (data) => {
     setPage(1)
-    history.push(`/ search / ${data.category} `)
+    history.push(`/search/${data.category}`)
   }
   return (<Container>
     <Form onSubmit={handleSubmit(onValid)}>

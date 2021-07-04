@@ -69,9 +69,9 @@ const Profile = () => {
           <ListName>
             <span onClick={() => { setUser("cafe") }}>{username}의 카페</span>
           </ListName>
-          <ListName>
+          {/* <ListName>
             <span onClick={() => { setUser("likes") }}>{username}의 좋아요</span>
-          </ListName>
+          </ListName> */}
           {data?.seeProfile?.isMe && <><ListName>
             <span onClick={() => { setUser("edit") }}>기본 정보 수정하기</span>
           </ListName>
@@ -88,7 +88,7 @@ const Profile = () => {
         <div style={{ width: "100%" }}>
           {userMode === "basic" && <BasicInfo data={{ ...data }} />}
           {userMode === "cafe" && <UserCafe username={data?.seeProfile?.username} />}
-          {userMode === "likes" && <UserLikes />}
+          {/* {userMode === "likes" && <UserLikes />} */}
           {userMode === "edit" && <EditUser preData={{ ...data }} />}
           {userMode === "avatar" && <UserAvatar />}
           {userMode === "del" && <DelUser id={data?.seeProfile?.id} username={data?.seeProfile?.username} />}

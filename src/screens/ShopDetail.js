@@ -94,7 +94,10 @@ const ShopCategories = styled.div`
 const Category = styled.span`
     margin-right: 20px;
     cursor: pointer;
-  `
+    a {
+     color: ${props => props.theme.fontColor};
+    }
+`
 
 const CategoryUL = styled.div`
   margin-bottom: 20px;
@@ -207,7 +210,9 @@ const ShopDetail = () => {
                   <CategoryLI>
                     <span>{data?.seeCoffeeShop?.categories.map((item, index) => {
                       return <Category key={index}>
-                        {item.name}
+                        <Link to={`/search/${item.name}`}>
+                          {item.name}
+                        </Link>
                       </Category>
                     })}</span>
                   </CategoryLI>
