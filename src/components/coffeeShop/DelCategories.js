@@ -25,10 +25,12 @@ const CategoryName = styled.div`
 `
 
 const CheckBtn = styled.div`
+  cursor: pointer;
 `
 
 const RemoveBtn = styled.div`
   font-size: 24px;
+  cursor: pointer;
 `
 
 const REMOVE_CATEGORY_MUTATION = gql`
